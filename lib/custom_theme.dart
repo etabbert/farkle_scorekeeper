@@ -15,7 +15,7 @@ class CustomTheme {
       textTheme: const TextTheme(
         displayLarge: TextStyle(
             color: Colors.white,
-            fontSize: 24,
+            fontSize: 35,
             fontWeight: FontWeight.bold,
             fontStyle: FontStyle.normal),
         displayMedium: TextStyle(

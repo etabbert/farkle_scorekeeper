@@ -16,7 +16,18 @@ class MainView extends StatelessWidget {
             allowImplicitScrolling: false,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
-              return pageService.pages[index].page;
+              return Stack(children: [
+                pageService.pages[index].name != "HomePage"
+                    ? IconButton(
+                        onPressed: () {
+                          pageService.goToPageByName("HomePage");
+                        },
+                        icon: const Icon(Icons.arrow_back),
+                        iconSize: 35,
+                      )
+                    : const SizedBox.shrink(),
+                Positioned.fill(child: pageService.pages[index].page)
+              ]);
             });
       },
     );

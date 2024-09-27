@@ -9,24 +9,48 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<PageService>(builder: (context, pageService, child) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'Farkle Scorekeeper',
-            style: CustomTheme.themeData.textTheme.displayLarge,
+      return Center(
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.black, borderRadius: BorderRadius.circular(20)),
+          child: Padding(
+            padding: const EdgeInsets.all(50.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    'Farkle Scorekeeper',
+                    style: CustomTheme.themeData.textTheme.displayLarge,
+                  ),
+                ),
+                const SizedBox(
+                  height: 35,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      pageService.goToPageByName("ScoreboardPage");
+                    },
+                    child: const Text('Start Game'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      pageService.goToPageByName("SettingsPage");
+                    },
+                    child: const Text('Settings'),
+                  ),
+                )
+              ],
+            ),
           ),
-          ElevatedButton(
-            onPressed: () {
-              pageService.goToPageByName("ScoreboardPage");
-            },
-            child: const Text('Start Game'),
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            child: const Text('Settings'),
-          )
-        ],
+        ),
       );
     });
   }
