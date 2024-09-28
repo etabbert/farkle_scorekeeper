@@ -1,7 +1,7 @@
 import 'package:farkle_scorekeeper/models/die.dart';
 import 'package:flutter/material.dart';
 
-class ScoreService extends ChangeNotifier {
+class RegulationService extends ChangeNotifier {
   int calculateScore(List<Die> diceValues) {
     if (diceValues.length > 6) {
       throw ArgumentError('You can roll a maximum of 6 dice.');
@@ -38,16 +38,34 @@ class ScoreService extends ChangeNotifier {
       int count = counts[i] ?? 0;
 
       if (count >= 3) {
-        int baseScore = i == 1 ? 1000 : i * 100;
-        score += baseScore * (1 << (count - 3));
+        switch (count) {
+          case 3:
+            if (i == 1) {
+              score += 1000;
+            } else {
+              score += i * 100;
+            }
+            break;
+          case 4:
+            score += 1000;
+            break;
+          case 5:
+            score += 2500;
+            break;
+          case 6:
+            score += 3000;
+            break;
+        }
       }
 
-      if (i == 1 && count < 3) {
-        score += count * 100;
-      } else if (i == 5 && count < 3) {
-        score += count * 50;
+      if (count >= 3) {
+        counts[i] = count - 3;
+        if (counts[i]! < 0) counts[i] = 0;
       }
     }
+
+    score += (counts[1] ?? 0) * 100;
+    score += (counts[5] ?? 0) * 50;
 
     return score;
   }
