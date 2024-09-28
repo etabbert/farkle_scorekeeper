@@ -17,11 +17,16 @@ class MainScoreboard extends StatelessWidget {
           final double fullWidth = constraints.maxWidth;
 
           final double heightOffset = fullHeight * 0.1;
-          final double scoreWidthOffset = fullWidth / 7;
+          final double scoreWidthOffset = fullWidth / 8;
 
           return Stack(
             alignment: Alignment.topCenter,
             children: [
+              Container(
+                height: fullHeight - heightOffset + 5,
+                width: fullWidth,
+                color: Colors.white,
+              ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -69,33 +74,65 @@ class MainScoreboard extends StatelessWidget {
                   ),
                 ],
               ),
-              ClipPath(
-                clipper: TrapezoidClipper(),
-                child: Container(
-                  height: fullHeight,
-                  width: fullWidth / 5,
-                  color: Colors.amber,
-                  child: Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: FittedBox(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "${scoreKeeperService.scoreToWin} pts",
-                            style: CustomTheme.themeData.textTheme.displayLarge,
-                          ),
-                          Text(
-                            "to WIN",
-                            style:
-                                CustomTheme.themeData.textTheme.displayMedium,
-                          ),
-                        ],
-                      ),
+              TrapezoidWidget(
+                width: fullWidth / 5,
+                height: fullHeight,
+                cornerRadius: 10,
+                borderWidth: 5,
+                borderColor: Colors.white,
+                fillColor: Colors.amber,
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: FittedBox(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "${scoreKeeperService.scoreToWin} pts",
+                          style: CustomTheme.themeData.textTheme.displayLarge,
+                        ),
+                        Text(
+                          "to WIN",
+                          style: CustomTheme.themeData.textTheme.displayMedium,
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ),
+              )
+              // ClipPath(
+              //   clipper: TrapezoidClipper(),
+              //   child: Container(
+              //     height: fullHeight,
+              //     width: fullWidth / 5,
+              //     decoration: BoxDecoration(
+              //       color: Colors.amber,
+              //       border: Border.all(
+              //         color: Colors.white,
+              //         width: 2,
+              //       ),
+              //     ),
+              //     child: Padding(
+              //       padding: const EdgeInsets.all(5.0),
+              //       child: FittedBox(
+              //         child: Column(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             Text(
+              //               "${scoreKeeperService.scoreToWin} pts",
+              //               style: CustomTheme.themeData.textTheme.displayLarge,
+              //             ),
+              //             Text(
+              //               "to WIN",
+              //               style:
+              //                   CustomTheme.themeData.textTheme.displayMedium,
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           );
         },
