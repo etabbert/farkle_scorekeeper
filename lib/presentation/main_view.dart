@@ -17,6 +17,7 @@ class MainView extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
               return Stack(children: [
+                Positioned.fill(child: pageService.pages[index].page),
                 pageService.pages[index].name != "HomePage"
                     ? IconButton(
                         onPressed: () {
@@ -25,8 +26,7 @@ class MainView extends StatelessWidget {
                         icon: const Icon(Icons.arrow_back),
                         iconSize: 35,
                       )
-                    : const SizedBox.shrink(),
-                Positioned.fill(child: pageService.pages[index].page)
+                    : const SizedBox.shrink()
               ]);
             });
       },
