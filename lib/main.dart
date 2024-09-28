@@ -1,6 +1,7 @@
 import 'package:farkle_scorekeeper/custom_theme.dart';
 import 'package:farkle_scorekeeper/presentation/main_view.dart';
 import 'package:farkle_scorekeeper/services/page_service.dart';
+import 'package:farkle_scorekeeper/services/scorekeeper_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,8 @@ class RegisterServices extends StatelessWidget {
         update: (_, pageController, previousService) =>
             previousService ?? PageService(pageController: pageController),
       ),
+      ChangeNotifierProvider<ScorekeeperService>(
+          create: (_) => ScorekeeperService())
     ], child: const MainApp());
   }
 }

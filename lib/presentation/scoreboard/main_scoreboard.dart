@@ -42,7 +42,7 @@ class MainScoreboard extends StatelessWidget {
                           children: [
                             FittedBox(
                               child: Text(
-                                  scoreKeeperService.player1Score.toString(),
+                                  scoreKeeperService.redPlayerScore.toString(),
                                   style: CustomTheme
                                       .themeData.textTheme.displayLarge),
                             ),
@@ -63,7 +63,7 @@ class MainScoreboard extends StatelessWidget {
                             SizedBox(width: scoreWidthOffset),
                             FittedBox(
                               child: Text(
-                                  scoreKeeperService.player2Score.toString(),
+                                  scoreKeeperService.bluePlayerScore.toString(),
                                   style: CustomTheme
                                       .themeData.textTheme.displayLarge),
                             ),

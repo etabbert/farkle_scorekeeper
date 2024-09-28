@@ -43,5 +43,20 @@ class CustomTheme {
             fontSize: 12,
             fontWeight: FontWeight.normal,
             fontStyle: FontStyle.normal),
+        labelLarge: TextStyle(
+          color: Colors.black,
+          fontSize: 24,
+          fontWeight: FontWeight.normal,
+        ),
+        labelMedium: TextStyle(
+          color: Colors.black,
+          fontSize: 18,
+          fontWeight: FontWeight.normal,
+        ),
+        labelSmall: TextStyle(
+          color: Colors.black,
+          fontSize: 14,
+          fontWeight: FontWeight.normal,
+        ),
       ));
 }

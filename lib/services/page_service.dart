@@ -11,8 +11,8 @@ class PageService extends ChangeNotifier {
 
   List<CustomPage> pages = [
     CustomPage(name: 'HomePage', page: const HomePage()),
-    CustomPage(name: "ScoreboardPage", page: const ScoreboardPage()),
     CustomPage(name: "SettingsPage", page: const SettingsPage()),
+    CustomPage(name: "ScoreboardPage", page: const ScoreboardPage())
   ];
 
   void goToPageByName(String name) {

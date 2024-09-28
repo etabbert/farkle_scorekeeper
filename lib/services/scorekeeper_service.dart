@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 
 class ScorekeeperService extends ChangeNotifier {
-  int _scoreToWin = 0;
-  int _player1Score = 0;
-  int _player2Score = 0;
+  int _scoreToWin = 4000;
+  int _redPlayerScore = 0;
+  int _bluePlayerScore = 0;
 
   int get scoreToWin => _scoreToWin;
-  int get player1Score => _player1Score;
-  int get player2Score => _player2Score;
+  int get redPlayerScore => _redPlayerScore;
+  int get bluePlayerScore => _bluePlayerScore;
 
   void setScoreToWin(int score) {
     _scoreToWin = score;
     notifyListeners();
   }
 
-  void setPlayer1Score(int score) {
-    _player1Score = score;
+  void setRedPlayerScore(int score) {
+    _redPlayerScore = score;
     notifyListeners();
   }
 
-  void setPlayer2Score(int score) {
-    _player2Score = score;
+  void setBluePlayerScore(int score) {
+    _bluePlayerScore = score;
     notifyListeners();
   }
 }
