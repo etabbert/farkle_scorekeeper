@@ -25,20 +25,22 @@ class CustomSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        FittedBox(
-          child: Text(
-            min.toString(),
-            style: CustomTheme.themeData.textTheme.labelSmall,
-          ),
-        ),
+        showSideLabels
+            ? FittedBox(
+                child: Text(
+                  min.toString(),
+                  style: CustomTheme.themeData.textTheme.labelSmall,
+                ),
+              )
+            : const SizedBox.shrink(),
         SliderTheme(
           data: SliderTheme.of(context).copyWith(
-            activeTrackColor: Colors.blue,
-            inactiveTrackColor: Colors.blue[100],
-            trackHeight: 4.0,
-            thumbColor: Colors.blue,
+            activeTrackColor: Colors.deepPurple,
+            inactiveTrackColor: Colors.deepPurple[100],
+            trackHeight: 8.0,
+            thumbColor: Colors.deepPurple,
             thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12.0),
-            overlayColor: Colors.blue.withAlpha(32),
+            overlayColor: Colors.deepPurple.withAlpha(32),
             overlayShape: const RoundSliderOverlayShape(overlayRadius: 28.0),
           ),
           child: Slider(
@@ -50,12 +52,14 @@ class CustomSlider extends StatelessWidget {
             onChanged: onChanged,
           ),
         ),
-        FittedBox(
-          child: Text(
-            max.toString(),
-            style: CustomTheme.themeData.textTheme.labelSmall,
-          ),
-        ),
+        showSideLabels
+            ? FittedBox(
+                child: Text(
+                  max.toString(),
+                  style: CustomTheme.themeData.textTheme.labelSmall,
+                ),
+              )
+            : const SizedBox.shrink(),
       ],
     );
   }

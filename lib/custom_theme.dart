@@ -45,18 +45,18 @@ class CustomTheme {
             fontStyle: FontStyle.normal),
         labelLarge: TextStyle(
           color: Colors.black,
-          fontSize: 24,
-          fontWeight: FontWeight.normal,
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
         ),
         labelMedium: TextStyle(
           color: Colors.black,
           fontSize: 18,
-          fontWeight: FontWeight.normal,
+          fontWeight: FontWeight.bold,
         ),
         labelSmall: TextStyle(
           color: Colors.black,
           fontSize: 14,
-          fontWeight: FontWeight.normal,
+          fontWeight: FontWeight.bold,
         ),
       ));
 }

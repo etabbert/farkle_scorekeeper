@@ -1,6 +1,8 @@
 import 'package:farkle_scorekeeper/custom_theme.dart';
+import 'package:farkle_scorekeeper/presentation/custom_widgets/custom_elevated_button.dart';
 import 'package:farkle_scorekeeper/presentation/main_menu/start_game_dialog.dart';
 import 'package:farkle_scorekeeper/services/page_service.dart';
+import 'package:farkle_scorekeeper/services/scorekeeper_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +11,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<PageService>(builder: (context, pageService, child) {
+    return Consumer2<PageService, ScorekeeperService>(
+        builder: (context, pageService, scoreKeeperService, child) {
       return LayoutBuilder(builder: (context, constraints) {
         return Center(
           child: Container(
@@ -33,24 +36,33 @@ class HomePage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
+                    child: CustomElevatedButton(
+                      text: "Start Game",
+                      color: Colors.deepPurple,
+                      textColor: Colors.white,
+                      width: 150,
+                      height: 50,
                       onPressed: () async {
+                        scoreKeeperService.resetAllValues();
                         await showDialog(
                             context: context,
                             builder: (context) {
                               return const StartGameDialog();
                             });
                       },
-                      child: const Text('Start Game'),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
+                    child: CustomElevatedButton(
+                      text: "Settings",
+                      color: Colors.deepPurple,
+                      textColor: Colors.white,
+                      width: 150,
+                      height: 50,
                       onPressed: () {
                         pageService.goToPageByName("SettingsPage");
                       },
-                      child: const Text('Settings'),
                     ),
                   )
                 ],
