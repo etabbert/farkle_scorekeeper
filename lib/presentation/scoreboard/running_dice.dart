@@ -53,7 +53,13 @@ class RunningDice extends StatelessWidget {
                       color: Colors.deepPurple,
                       textColor: Colors.white,
                       width: constraints.maxWidth / 3,
-                      onPressed: () {}),
+                      onPressed: scorekeeperService.runningDice.isNotEmpty
+                          ? () {
+                              scorekeeperService.addToPreviousRolls(
+                                  scorekeeperService.runningDice);
+                              scorekeeperService.resetRunningDice();
+                            }
+                          : null),
                 )
               ],
             );

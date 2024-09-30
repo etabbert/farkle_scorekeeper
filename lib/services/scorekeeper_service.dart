@@ -84,7 +84,7 @@ class ScorekeeperService extends ChangeNotifier {
   }
 
   void addToPreviousRolls(List<Die> roll) {
-    _previousRolls.add(roll);
+    _previousRolls.insert(0, roll);
     notifyListeners();
   }
 

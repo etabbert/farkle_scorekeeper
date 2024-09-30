@@ -1,6 +1,8 @@
 import 'package:farkle_scorekeeper/presentation/scoreboard/dice_button_pad.dart';
 import 'package:farkle_scorekeeper/presentation/scoreboard/main_scoreboard.dart';
 import 'package:farkle_scorekeeper/presentation/scoreboard/running_dice.dart';
+import 'package:farkle_scorekeeper/presentation/scoreboard/scoring_history.dart';
+import 'package:farkle_scorekeeper/presentation/scoreboard/turn_controls.dart';
 import 'package:flutter/material.dart';
 
 class ScoreboardPage extends StatelessWidget {
@@ -18,7 +20,7 @@ class ScoreboardPage extends StatelessWidget {
                 width: constraints.maxWidth,
                 child: Row(
                   children: [
-                    Expanded(flex: 1, child: Container()),
+                    const Expanded(flex: 1, child: ScoringHistory()),
                     Expanded(
                         flex: 1,
                         child: Column(
@@ -34,11 +36,7 @@ class ScoreboardPage extends StatelessWidget {
                                 child: const DiceButtonPad(),
                               ),
                             ),
-                            Expanded(
-                                flex: 1,
-                                child: Container(
-                                  color: Colors.amber,
-                                ))
+                            const Expanded(flex: 1, child: TurnControls())
                           ],
                         ))
                   ],

@@ -125,39 +125,6 @@ class MainScoreboard extends StatelessWidget {
                   ),
                 ),
               )
-              // ClipPath(
-              //   clipper: TrapezoidClipper(),
-              //   child: Container(
-              //     height: fullHeight,
-              //     width: fullWidth / 5,
-              //     decoration: BoxDecoration(
-              //       color: Colors.amber,
-              //       border: Border.all(
-              //         color: Colors.white,
-              //         width: 2,
-              //       ),
-              //     ),
-              //     child: Padding(
-              //       padding: const EdgeInsets.all(5.0),
-              //       child: FittedBox(
-              //         child: Column(
-              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //           children: [
-              //             Text(
-              //               "${scoreKeeperService.scoreToWin} pts",
-              //               style: CustomTheme.themeData.textTheme.displayLarge,
-              //             ),
-              //             Text(
-              //               "to WIN",
-              //               style:
-              //                   CustomTheme.themeData.textTheme.displayMedium,
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
             ],
           );
         },
