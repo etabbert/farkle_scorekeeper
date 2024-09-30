@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String text;
+  final IconData? icon;
   final Color color;
   final Color textColor;
   final double width;
@@ -12,6 +13,7 @@ class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
     super.key,
     required this.text,
+    this.icon,
     required this.color,
     required this.textColor,
     this.width = 75,
@@ -48,10 +50,12 @@ class CustomElevatedButton extends StatelessWidget {
         fixedSize: WidgetStateProperty.all(Size(width, height)),
       ),
       child: FittedBox(
-        child: Text(
-          text,
-          style: TextStyle(color: textColor, fontSize: 16),
-        ),
+        child: icon == null
+            ? Text(
+                text,
+                style: TextStyle(color: textColor, fontSize: 16),
+              )
+            : Icon(icon, color: textColor),
       ),
     );
   }

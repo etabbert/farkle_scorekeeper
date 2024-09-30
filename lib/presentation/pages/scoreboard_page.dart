@@ -1,3 +1,4 @@
+import 'package:farkle_scorekeeper/presentation/scoreboard/dice_button_pad.dart';
 import 'package:farkle_scorekeeper/presentation/scoreboard/main_scoreboard.dart';
 import 'package:flutter/material.dart';
 
@@ -7,10 +8,24 @@ class ScoreboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      return Column(
+      return Stack(
         children: [
-          const Expanded(flex: 1, child: MainScoreboard()),
-          Expanded(flex: 6, child: Container())
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SizedBox(
+                height: constraints.maxHeight - constraints.maxHeight / 7.3,
+                width: constraints.maxWidth,
+                child: Row(
+                  children: [
+                    Expanded(flex: 1, child: Container()),
+                    const Expanded(flex: 1, child: DiceButtonPad())
+                  ],
+                )),
+          ),
+          SizedBox(
+              height: constraints.maxHeight / 7,
+              width: constraints.maxWidth,
+              child: const MainScoreboard()),
         ],
       );
     });

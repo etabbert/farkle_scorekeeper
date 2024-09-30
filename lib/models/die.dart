@@ -21,11 +21,11 @@ class Die {
   }
 
   static const Map<int, String> _assets = {
-    1: 'assets/dice/dice-one.png',
-    2: 'assets/dice/dice-two.png',
-    3: 'assets/dice/dice-three.png',
-    4: 'assets/dice/dice-four.png',
-    5: 'assets/dice/dice-five.png',
-    6: 'assets/dice/dice-six.png',
+    1: 'assets/dice/dice-one.svg',
+    2: 'assets/dice/dice-two.svg',
+    3: 'assets/dice/dice-three.svg',
+    4: 'assets/dice/dice-four.svg',
+    5: 'assets/dice/dice-five.svg',
+    6: 'assets/dice/dice-six.svg',
   };
 }
