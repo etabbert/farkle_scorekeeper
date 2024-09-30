@@ -82,9 +82,9 @@ class StartGameDialog extends StatelessWidget {
                           height: 50,
                           color: Colors.blue,
                           isSelected:
-                              scoreKeeperService.firstTurn == Player.blue,
+                              scoreKeeperService.currentPlayer == Player.blue,
                           onPressed: () {
-                            scoreKeeperService.setFirstTurn(Player.blue);
+                            scoreKeeperService.setCurrentPlayer(Player.blue);
                           },
                         ),
                         CustomElevatedButton(
@@ -94,9 +94,9 @@ class StartGameDialog extends StatelessWidget {
                           height: 50,
                           color: Colors.red,
                           isSelected:
-                              scoreKeeperService.firstTurn == Player.red,
+                              scoreKeeperService.currentPlayer == Player.red,
                           onPressed: () {
-                            scoreKeeperService.setFirstTurn(Player.red);
+                            scoreKeeperService.setCurrentPlayer(Player.red);
                           },
                         ),
                       ],
@@ -121,7 +121,7 @@ class StartGameDialog extends StatelessWidget {
                     text: "Start",
                     textColor: Colors.white,
                     color: Colors.deepPurple,
-                    onPressed: scoreKeeperService.firstTurn != Player.none
+                    onPressed: scoreKeeperService.currentPlayer != Player.none
                         ? () {
                             Navigator.of(context).pop();
                             pageService.goToPageByName("ScoreboardPage");

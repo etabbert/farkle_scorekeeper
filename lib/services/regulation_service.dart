@@ -40,7 +40,9 @@ class RegulationService {
         switch (count) {
           case 3:
             if (i == 1) {
-              score += 1000;
+              score += 100 * 3;
+            } else if (i == 5) {
+              score += 50 * 3;
             } else {
               score += i * 100;
             }
@@ -55,11 +57,8 @@ class RegulationService {
             score += 3000;
             break;
         }
-      }
 
-      if (count >= 3) {
-        counts[i] = count - 3;
-        if (counts[i]! < 0) counts[i] = 0;
+        counts[i] = 0;
       }
     }
 

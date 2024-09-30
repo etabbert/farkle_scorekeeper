@@ -1,22 +1,23 @@
 import 'package:farkle_scorekeeper/models/die.dart';
 import 'package:farkle_scorekeeper/models/players.dart';
+import 'package:farkle_scorekeeper/services/regulation_service.dart';
 import 'package:flutter/material.dart';
 
 class ScorekeeperService extends ChangeNotifier {
   int _scoreToWin = 4000;
   int _redPlayerScore = 0;
   int _bluePlayerScore = 0;
-  Player _firstTurn = Player.none;
   Player _currentPlayer = Player.none;
   int _runningTotal = 0;
   int _rollTotal = 0;
   List<Die> _runningDice = [];
   List<List<Die>> _previousRolls = [];
 
+  final RegulationService _regulationService = RegulationService();
+
   int get scoreToWin => _scoreToWin;
   int get redPlayerScore => _redPlayerScore;
   int get bluePlayerScore => _bluePlayerScore;
-  Player get firstTurn => _firstTurn;
   Player get currentPlayer => _currentPlayer;
   int get runningTotal => _runningTotal;
   int get rollTotal => _rollTotal;
@@ -35,11 +36,6 @@ class ScorekeeperService extends ChangeNotifier {
 
   void setBluePlayerScore(int score) {
     _bluePlayerScore = score;
-    notifyListeners();
-  }
-
-  void setFirstTurn(Player player) {
-    _firstTurn = player;
     notifyListeners();
   }
 
@@ -66,6 +62,7 @@ class ScorekeeperService extends ChangeNotifier {
   void addToRunningDice(Die die) {
     if (_runningDice.length < 6) {
       _runningDice.add(die);
+      print(_regulationService.calculateScore(_runningDice));
     }
     notifyListeners();
   }
@@ -108,7 +105,6 @@ class ScorekeeperService extends ChangeNotifier {
     _scoreToWin = 4000;
     _redPlayerScore = 0;
     _bluePlayerScore = 0;
-    _firstTurn = Player.none;
     _currentPlayer = Player.none;
     _runningTotal = 0;
     _rollTotal = 0;

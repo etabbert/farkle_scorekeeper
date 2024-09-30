@@ -11,7 +11,7 @@ class CustomTheme {
   static final ThemeData themeData = ThemeData(
       useMaterial3: true,
       colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      scaffoldBackgroundColor: Colors.grey,
+      scaffoldBackgroundColor: Colors.amberAccent,
       textTheme: const TextTheme(
         displayLarge: TextStyle(
             color: Colors.white,

@@ -1,4 +1,5 @@
 import 'package:farkle_scorekeeper/custom_theme.dart';
+import 'package:farkle_scorekeeper/models/players.dart';
 import 'package:farkle_scorekeeper/services/scorekeeper_service.dart';
 import 'package:farkle_scorekeeper/utils/shape_utility.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class MainScoreboard extends StatelessWidget {
           final double fullWidth = constraints.maxWidth;
 
           final double heightOffset = fullHeight * 0.1;
-          final double scoreWidthOffset = fullWidth / 8;
+          final double scoreWidthOffset = fullWidth / 9;
 
           return Stack(
             alignment: Alignment.topCenter,
@@ -42,10 +43,22 @@ class MainScoreboard extends StatelessWidget {
                           children: [
                             FittedBox(
                               child: Text(
-                                  scoreKeeperService.redPlayerScore.toString(),
+                                  scoreKeeperService.bluePlayerScore.toString(),
                                   style: CustomTheme
                                       .themeData.textTheme.displayLarge),
                             ),
+                            SizedBox(width: scoreWidthOffset / 4),
+                            scoreKeeperService.currentPlayer == Player.blue
+                                ? const Icon(
+                                    Icons.person,
+                                    color: Colors.amber,
+                                    size: 50,
+                                  )
+                                : const Icon(
+                                    Icons.person_outline,
+                                    color: Colors.white,
+                                    size: 50,
+                                  ),
                             SizedBox(width: scoreWidthOffset)
                           ],
                         ),
@@ -61,9 +74,21 @@ class MainScoreboard extends StatelessWidget {
                         child: Row(
                           children: [
                             SizedBox(width: scoreWidthOffset),
+                            scoreKeeperService.currentPlayer == Player.red
+                                ? const Icon(
+                                    Icons.person,
+                                    color: Colors.amber,
+                                    size: 50,
+                                  )
+                                : const Icon(
+                                    Icons.person_outline,
+                                    color: Colors.white,
+                                    size: 50,
+                                  ),
+                            SizedBox(width: scoreWidthOffset / 4),
                             FittedBox(
                               child: Text(
-                                  scoreKeeperService.bluePlayerScore.toString(),
+                                  scoreKeeperService.redPlayerScore.toString(),
                                   style: CustomTheme
                                       .themeData.textTheme.displayLarge),
                             ),
