@@ -33,7 +33,8 @@ class DiceButtonPad extends StatelessWidget {
                     _buildExpandedDiceButton(Die(initialValue: 1)),
                     _buildExpandedDiceButton(Die(initialValue: 2)),
                     _buildExpandedDiceButton(Die(initialValue: 3)),
-                    _buildSideButton("Remove", () {
+                    _buildSideButton("Remove", constraints.maxHeight / 5,
+                        constraints.maxWidth / 3, () {
                       scorekeeperService.removeLastRunningDie();
                     }),
                   ],
@@ -43,7 +44,8 @@ class DiceButtonPad extends StatelessWidget {
                     _buildExpandedDiceButton(Die(initialValue: 4)),
                     _buildExpandedDiceButton(Die(initialValue: 5)),
                     _buildExpandedDiceButton(Die(initialValue: 6)),
-                    _buildSideButton("Clear", () {
+                    _buildSideButton("Clear", constraints.maxHeight / 5,
+                        constraints.maxWidth / 3, () {
                       scorekeeperService.resetRunningDice();
                     }),
                   ],
@@ -65,7 +67,8 @@ class DiceButtonPad extends StatelessWidget {
     );
   }
 
-  Widget _buildSideButton(String label, Function() onPressed) {
+  Widget _buildSideButton(
+      String label, double height, double width, Function() onPressed) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.only(left: 10.0),
@@ -75,6 +78,8 @@ class DiceButtonPad extends StatelessWidget {
             text: label,
             color: Colors.deepPurple,
             textColor: Colors.white,
+            height: height,
+            width: width,
             onPressed: onPressed,
           ),
         ),

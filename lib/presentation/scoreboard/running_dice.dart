@@ -1,3 +1,4 @@
+import 'package:farkle_scorekeeper/presentation/custom_widgets/custom_elevated_button.dart';
 import 'package:farkle_scorekeeper/presentation/custom_widgets/dice_image.dart';
 import 'package:farkle_scorekeeper/services/scorekeeper_service.dart';
 import 'package:flutter/material.dart';
@@ -16,28 +17,44 @@ class RunningDice extends StatelessWidget {
           builder: (context, constraints) {
             double diceSize = (constraints.maxWidth - 16 * (totalDice - 1)) / 6;
 
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            return Column(
               children: [
-                ...scorekeeperService.runningDice.map((die) => Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          width: diceSize,
-                          height: diceSize,
-                          child: DiceImage(die: die),
+                Expanded(
+                  flex: 2,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ...scorekeeperService.runningDice.map((die) => Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SizedBox(
+                                width: diceSize,
+                                height: diceSize,
+                                child: DiceImage(die: die),
+                              ),
+                            ),
+                          )),
+                      ...List.generate(
+                        6 - totalDice,
+                        (index) => Expanded(
+                          child: SizedBox(
+                            width: diceSize,
+                            height: diceSize,
+                          ),
                         ),
                       ),
-                    )),
-                ...List.generate(
-                  6 - totalDice,
-                  (index) => Expanded(
-                    child: SizedBox(
-                      width: diceSize,
-                      height: diceSize,
-                    ),
+                    ],
                   ),
                 ),
+                Expanded(
+                  flex: 1,
+                  child: CustomElevatedButton(
+                      text: "Add to Total",
+                      color: Colors.deepPurple,
+                      textColor: Colors.white,
+                      width: constraints.maxWidth / 3,
+                      onPressed: () {}),
+                )
               ],
             );
           },
