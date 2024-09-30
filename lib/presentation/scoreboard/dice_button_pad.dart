@@ -1,4 +1,5 @@
 import 'package:farkle_scorekeeper/models/die.dart';
+import 'package:farkle_scorekeeper/presentation/custom_widgets/custom_elevated_button.dart';
 import 'package:farkle_scorekeeper/presentation/custom_widgets/dice_button.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +29,7 @@ class DiceButtonPad extends StatelessWidget {
                   _buildExpandedDiceButton(Die(initialValue: 1)),
                   _buildExpandedDiceButton(Die(initialValue: 2)),
                   _buildExpandedDiceButton(Die(initialValue: 3)),
+                  _buildSideButton("Remove", () {}),
                 ],
               ),
               Row(
@@ -35,8 +37,9 @@ class DiceButtonPad extends StatelessWidget {
                   _buildExpandedDiceButton(Die(initialValue: 4)),
                   _buildExpandedDiceButton(Die(initialValue: 5)),
                   _buildExpandedDiceButton(Die(initialValue: 6)),
+                  _buildSideButton("Clear", () {}),
                 ],
-              )
+              ),
             ],
           ),
         );
@@ -49,6 +52,23 @@ class DiceButtonPad extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(4.0),
         child: AspectRatio(aspectRatio: 1, child: DiceButton(die: die)),
+      ),
+    );
+  }
+
+  Widget _buildSideButton(String label, Function() onPressed) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0),
+        child: Container(
+          margin: const EdgeInsets.all(4.0),
+          child: CustomElevatedButton(
+            text: label,
+            color: Colors.deepPurple,
+            textColor: Colors.white,
+            onPressed: onPressed,
+          ),
+        ),
       ),
     );
   }

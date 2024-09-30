@@ -31,12 +31,10 @@ class ScoreboardPage extends StatelessWidget {
                               flex: 3,
                               child: ConstrainedBox(
                                 constraints: BoxConstraints(
-                                  maxWidth: constraints.maxWidth /
-                                      3, // Ensures DiceButtonPad stays within 1/3 width
-                                  maxHeight: constraints.maxHeight /
-                                      2, // Constrain its height proportionally
+                                  maxWidth: constraints.maxWidth / 2.5,
+                                  maxHeight: constraints.maxHeight / 2,
                                 ),
-                                child: DiceButtonPad(),
+                                child: const DiceButtonPad(),
                               ),
                             ),
                             Expanded(

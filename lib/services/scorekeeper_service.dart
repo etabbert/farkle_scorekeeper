@@ -1,3 +1,4 @@
+import 'package:farkle_scorekeeper/models/die.dart';
 import 'package:farkle_scorekeeper/models/players.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,8 @@ class ScorekeeperService extends ChangeNotifier {
   Player _currentPlayer = Player.none;
   int _runningTotal = 0;
   int _rollTotal = 0;
+  List<Die> _runningDice = [];
+  List<List<Die>> _previousRolls = [];
 
   int get scoreToWin => _scoreToWin;
   int get redPlayerScore => _redPlayerScore;
@@ -17,6 +20,8 @@ class ScorekeeperService extends ChangeNotifier {
   Player get currentPlayer => _currentPlayer;
   int get runningTotal => _runningTotal;
   int get rollTotal => _rollTotal;
+  List<Die> get runningDice => _runningDice;
+  List<List<Die>> get previousRolls => _previousRolls;
 
   void setScoreToWin(int score) {
     _scoreToWin = score;
@@ -53,9 +58,49 @@ class ScorekeeperService extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setRunningDice(List<Die> runningDice) {
+    _runningDice = runningDice;
+    notifyListeners();
+  }
+
+  void addToRunningDice(Die die) {
+    if (_runningDice.length < 6) {
+      _runningDice.add(die);
+    }
+    notifyListeners();
+  }
+
+  void resetRunningDice() {
+    _runningDice = [];
+    notifyListeners();
+  }
+
+  void removeLastRunningDie() {
+    if (_runningDice.isNotEmpty) _runningDice.removeLast();
+
+    notifyListeners();
+  }
+
+  void setPreviousRolls(List<List<Die>> previousRolls) {
+    _previousRolls = previousRolls;
+    notifyListeners();
+  }
+
+  void addToPreviousRolls(List<Die> roll) {
+    _previousRolls.add(roll);
+    notifyListeners();
+  }
+
+  void resetPreviousRolls() {
+    _previousRolls = [];
+    notifyListeners();
+  }
+
   void resetScores() {
     _redPlayerScore = 0;
     _bluePlayerScore = 0;
+    _runningTotal = 0;
+    _rollTotal = 0;
     notifyListeners();
   }
 
@@ -64,6 +109,11 @@ class ScorekeeperService extends ChangeNotifier {
     _redPlayerScore = 0;
     _bluePlayerScore = 0;
     _firstTurn = Player.none;
+    _currentPlayer = Player.none;
+    _runningTotal = 0;
+    _rollTotal = 0;
+    _runningDice = [];
+    _previousRolls = [];
     notifyListeners();
   }
 }
