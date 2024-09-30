@@ -7,33 +7,48 @@ class DiceButtonPad extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(50.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(child: DiceButton(die: Die(initialValue: 1))),
-                Expanded(child: DiceButton(die: Die(initialValue: 2))),
-                Expanded(child: DiceButton(die: Die(initialValue: 3))),
-              ],
-            ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double width = constraints.maxWidth;
+        double height = constraints.maxHeight;
+
+        double buttonSize = width / 3;
+
+        if (height < buttonSize * 3) {
+          buttonSize = height / 3;
+        }
+
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                children: [
+                  _buildExpandedDiceButton(Die(initialValue: 1)),
+                  _buildExpandedDiceButton(Die(initialValue: 2)),
+                  _buildExpandedDiceButton(Die(initialValue: 3)),
+                ],
+              ),
+              Row(
+                children: [
+                  _buildExpandedDiceButton(Die(initialValue: 4)),
+                  _buildExpandedDiceButton(Die(initialValue: 5)),
+                  _buildExpandedDiceButton(Die(initialValue: 6)),
+                ],
+              )
+            ],
           ),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(child: DiceButton(die: Die(initialValue: 4))),
-                Expanded(child: DiceButton(die: Die(initialValue: 5))),
-                Expanded(child: DiceButton(die: Die(initialValue: 6))),
-              ],
-            ),
-          ),
-        ],
+        );
+      },
+    );
+  }
+
+  Widget _buildExpandedDiceButton(Die die) {
+    return Expanded(
+      child: Container(
+        margin: const EdgeInsets.all(4.0),
+        child: AspectRatio(aspectRatio: 1, child: DiceButton(die: die)),
       ),
     );
   }

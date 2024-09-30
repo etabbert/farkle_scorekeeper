@@ -18,7 +18,34 @@ class ScoreboardPage extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(flex: 1, child: Container()),
-                    const Expanded(flex: 1, child: DiceButtonPad())
+                    Expanded(
+                        flex: 1,
+                        child: Column(
+                          children: [
+                            Expanded(
+                                flex: 2,
+                                child: Container(
+                                  color: Colors.red,
+                                )),
+                            Expanded(
+                              flex: 3,
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxWidth: constraints.maxWidth /
+                                      3, // Ensures DiceButtonPad stays within 1/3 width
+                                  maxHeight: constraints.maxHeight /
+                                      2, // Constrain its height proportionally
+                                ),
+                                child: DiceButtonPad(),
+                              ),
+                            ),
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                  color: Colors.amber,
+                                ))
+                          ],
+                        ))
                   ],
                 )),
           ),
