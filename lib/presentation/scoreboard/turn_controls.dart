@@ -29,7 +29,9 @@ class TurnControls extends StatelessWidget {
                   textColor: Colors.white,
                   width: constraints.maxWidth / 3,
                   height: constraints.maxHeight,
-                  onPressed: () {})
+                  onPressed: () {
+                    scorekeeperService.commitRunningTotal();
+                  })
             ],
           ),
         );

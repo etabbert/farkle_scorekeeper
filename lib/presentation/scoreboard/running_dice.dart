@@ -55,8 +55,7 @@ class RunningDice extends StatelessWidget {
                       width: constraints.maxWidth / 3,
                       onPressed: scorekeeperService.runningDice.isNotEmpty
                           ? () {
-                              scorekeeperService.addToPreviousRolls(
-                                  scorekeeperService.runningDice);
+                              scorekeeperService.commitRunningRoll();
                               scorekeeperService.resetRunningDice();
                             }
                           : null),

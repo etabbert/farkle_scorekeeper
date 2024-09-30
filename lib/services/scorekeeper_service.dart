@@ -1,4 +1,6 @@
+import 'package:farkle_scorekeeper/models/dice_roll_item.dart';
 import 'package:farkle_scorekeeper/models/die.dart';
+import 'package:farkle_scorekeeper/models/list_item.dart';
 import 'package:farkle_scorekeeper/models/players.dart';
 import 'package:farkle_scorekeeper/services/regulation_service.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,7 @@ class ScorekeeperService extends ChangeNotifier {
   int _runningTotal = 0;
   int _rollTotal = 0;
   List<Die> _runningDice = [];
-  List<List<Die>> _previousRolls = [];
+  List<ListItem> _historyItems = [];
 
   final RegulationService _regulationService = RegulationService();
 
@@ -22,7 +24,7 @@ class ScorekeeperService extends ChangeNotifier {
   int get runningTotal => _runningTotal;
   int get rollTotal => _rollTotal;
   List<Die> get runningDice => _runningDice;
-  List<List<Die>> get previousRolls => _previousRolls;
+  List<ListItem> get historyItems => _historyItems;
 
   void setScoreToWin(int score) {
     _scoreToWin = score;
@@ -78,18 +80,79 @@ class ScorekeeperService extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setPreviousRolls(List<List<Die>> previousRolls) {
-    _previousRolls = previousRolls;
+  void commitRunningRoll() {
+    if (_currentPlayer == Player.none || _runningDice.isEmpty) {
+      return;
+    }
+
+    int calculatedScore = _regulationService.calculateScore(_runningDice);
+
+    addNewRollToTurn(calculatedScore);
+  }
+
+  void commitRunningTotal() {
+    if (_currentPlayer == Player.none) {
+      return;
+    }
+
+    if (_currentPlayer == Player.red) {
+      _redPlayerScore += _runningTotal;
+    } else {
+      _bluePlayerScore += _runningTotal;
+    }
+
+    _runningTotal = 0;
+    _rollTotal = 0;
+    _runningDice = [];
+
+    switchPlayers();
+
     notifyListeners();
   }
 
-  void addToPreviousRolls(List<Die> roll) {
-    _previousRolls.insert(0, roll);
+  void switchPlayers() {
+    String playerName = _getPlayerName(_currentPlayer);
+    PlayerLabelItem playerLabel = PlayerLabelItem(playerName: playerName);
+
+    _historyItems.insert(0, playerLabel);
+
+    if (_currentPlayer == Player.red) {
+      _currentPlayer = Player.blue;
+    } else {
+      _currentPlayer = Player.red;
+    }
+
     notifyListeners();
   }
 
-  void resetPreviousRolls() {
-    _previousRolls = [];
+  String _getPlayerName(Player player) {
+    switch (player) {
+      case Player.red:
+        return 'Red';
+      case Player.blue:
+        return 'Blue';
+      default:
+        return 'Unknown';
+    }
+  }
+
+  void setHistoryItems(List<ListItem> historyItems) {
+    _historyItems = historyItems;
+    notifyListeners();
+  }
+
+  void addToHistoryItems(ListItem item) {
+    _historyItems.insert(0, item);
+    notifyListeners();
+  }
+
+  void resetHistoryItems() {
+    _historyItems = [];
+    notifyListeners();
+  }
+
+  void addToRunningTotal(int score) {
+    _runningTotal += score;
     notifyListeners();
   }
 
@@ -109,7 +172,24 @@ class ScorekeeperService extends ChangeNotifier {
     _runningTotal = 0;
     _rollTotal = 0;
     _runningDice = [];
-    _previousRolls = [];
+    _historyItems = [];
+    notifyListeners();
+  }
+
+  void addNewRollToTurn(int score) {
+    if (_currentPlayer == Player.none) {
+      return;
+    }
+
+    DiceRollItem newRoll = DiceRollItem(
+      dice: List.from(_runningDice),
+      score: score,
+    );
+
+    _historyItems.insert(0, newRoll);
+
+    resetRunningDice();
+    addToRunningTotal(score);
     notifyListeners();
   }
 }

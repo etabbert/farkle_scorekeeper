@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class DiceHistoryRow extends StatelessWidget {
   final List<Die> dice;
-  final String score;
+  final int score;
 
   const DiceHistoryRow({
     super.key,
@@ -47,7 +47,7 @@ class DiceHistoryRow extends StatelessWidget {
         const Spacer(),
         FittedBox(
           child: Text(
-            score,
+            score.toString(),
             style: CustomTheme.themeData.textTheme.labelLarge,
           ),
         ),
