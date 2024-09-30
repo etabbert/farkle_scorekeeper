@@ -53,6 +53,8 @@ class ScoringHistory extends StatelessWidget {
                     return _buildPlayerLabel(item, context);
                   } else if (item is DiceRollItem) {
                     return _buildDiceRoll(item, context);
+                  } else if (item is FarkleItem) {
+                    return _buildFarkleItem();
                   } else {
                     return const SizedBox.shrink();
                   }
@@ -109,6 +111,18 @@ class ScoringHistory extends StatelessWidget {
       child: DiceHistoryRow(
         dice: item.dice,
         score: item.score,
+      ),
+    );
+  }
+
+  Widget _buildFarkleItem() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 150.0, vertical: 4.0),
+      child: FittedBox(
+        child: Text(
+          'Farkle!',
+          style: CustomTheme.themeData.textTheme.labelMedium,
+        ),
       ),
     );
   }

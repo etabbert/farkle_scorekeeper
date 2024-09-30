@@ -136,6 +136,21 @@ class ScorekeeperService extends ChangeNotifier {
     }
   }
 
+  void farkle() {
+    if (_currentPlayer == Player.none) {
+      return;
+    }
+
+    _runningTotal = 0;
+    _rollTotal = 0;
+    _runningDice = [];
+
+    addToHistoryItems(FarkleItem());
+
+    switchPlayers();
+    notifyListeners();
+  }
+
   void setHistoryItems(List<ListItem> historyItems) {
     _historyItems = historyItems;
     notifyListeners();

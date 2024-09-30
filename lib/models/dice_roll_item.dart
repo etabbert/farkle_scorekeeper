@@ -13,3 +13,7 @@ class PlayerLabelItem extends ListItem {
 
   PlayerLabelItem({required this.playerName});
 }
+
+class FarkleItem extends ListItem {
+  FarkleItem();
+}
