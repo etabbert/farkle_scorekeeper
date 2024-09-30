@@ -8,9 +8,14 @@ class DiceButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      die.getAssetString(),
-      fit: BoxFit.contain,
+    return GestureDetector(
+      onTap: () {
+        print(die.value);
+      },
+      child: SvgPicture.asset(
+        die.getAssetString(),
+        fit: BoxFit.contain,
+      ),
     );
   }
 }

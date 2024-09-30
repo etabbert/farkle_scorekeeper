@@ -1,7 +1,6 @@
 import 'package:farkle_scorekeeper/models/die.dart';
-import 'package:flutter/material.dart';
 
-class RegulationService extends ChangeNotifier {
+class RegulationService {
   int calculateScore(List<Die> diceValues) {
     if (diceValues.length > 6) {
       throw ArgumentError('You can roll a maximum of 6 dice.');
