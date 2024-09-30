@@ -1,5 +1,6 @@
 import 'package:farkle_scorekeeper/presentation/scoreboard/dice_button_pad.dart';
 import 'package:farkle_scorekeeper/presentation/scoreboard/main_scoreboard.dart';
+import 'package:farkle_scorekeeper/presentation/scoreboard/running_dice.dart';
 import 'package:flutter/material.dart';
 
 class ScoreboardPage extends StatelessWidget {
@@ -22,11 +23,7 @@ class ScoreboardPage extends StatelessWidget {
                         flex: 1,
                         child: Column(
                           children: [
-                            Expanded(
-                                flex: 2,
-                                child: Container(
-                                  color: Colors.red,
-                                )),
+                            const Expanded(flex: 2, child: RunningDice()),
                             Expanded(
                               flex: 3,
                               child: ConstrainedBox(
