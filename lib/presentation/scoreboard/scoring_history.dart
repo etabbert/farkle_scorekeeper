@@ -47,6 +47,8 @@ class ScoringHistory extends StatelessWidget {
               ),
               Expanded(
                 child: ListView.builder(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                   itemCount: scoreKeeperService.historyItems.length,
                   itemBuilder: (context, index) {
                     final item = scoreKeeperService.historyItems[index];
