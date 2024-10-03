@@ -64,7 +64,6 @@ class ScorekeeperService extends ChangeNotifier {
   void addToRunningDice(Die die) {
     if (_runningDice.length < 6) {
       _runningDice.add(die);
-      print(_regulationService.calculateScore(_runningDice));
     }
     notifyListeners();
   }

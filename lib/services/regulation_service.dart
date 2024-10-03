@@ -41,8 +41,6 @@ class RegulationService {
           case 3:
             if (i == 1) {
               score += 100 * 3;
-            } else if (i == 5) {
-              score += 50 * 3;
             } else {
               score += i * 100;
             }
