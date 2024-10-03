@@ -1,4 +1,6 @@
+import 'package:farkle_scorekeeper/models/players.dart';
 import 'package:farkle_scorekeeper/presentation/custom_widgets/custom_elevated_button.dart';
+import 'package:farkle_scorekeeper/presentation/scoreboard/winner_dialog.dart';
 import 'package:farkle_scorekeeper/services/scorekeeper_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,9 +33,20 @@ class TurnControls extends StatelessWidget {
                   textColor: Colors.white,
                   width: constraints.maxWidth / 3,
                   height: constraints.maxHeight,
-                  onPressed: () {
-                    scorekeeperService.commitRunningTotal();
-                  })
+                  onPressed: scorekeeperService.runningTotal != 0
+                      ? () async {
+                          scorekeeperService.commitRunningTotal();
+                          if (scorekeeperService.checkIfWin() != Player.none) {
+                            await showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (context) {
+                                  return WinnerDialog(
+                                      winner: scorekeeperService.checkIfWin());
+                                });
+                          }
+                        }
+                      : null),
             ],
           ),
         );

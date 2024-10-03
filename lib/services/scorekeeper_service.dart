@@ -26,6 +26,16 @@ class ScorekeeperService extends ChangeNotifier {
   List<Die> get runningDice => _runningDice;
   List<ListItem> get historyItems => _historyItems;
 
+  Player checkIfWin() {
+    if (_redPlayerScore >= _scoreToWin) {
+      return Player.red;
+    } else if (_bluePlayerScore >= _scoreToWin) {
+      return Player.blue;
+    } else {
+      return Player.none;
+    }
+  }
+
   void setScoreToWin(int score) {
     _scoreToWin = score;
     notifyListeners();
