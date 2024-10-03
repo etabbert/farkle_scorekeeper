@@ -12,58 +12,69 @@ class ScoringHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ScorekeeperService>(
         builder: (context, scoreKeeperService, child) {
-      return Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FittedBox(
-                    child: Text(
-                      'Scoring History',
-                      style: CustomTheme.themeData.textTheme.labelLarge,
+      return LayoutBuilder(builder: (context, constraints) {
+        return Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    FittedBox(
+                      child: Text(
+                        'Scoring History',
+                        style: CustomTheme.themeData.textTheme.labelLarge,
+                      ),
                     ),
-                  ),
-                  FittedBox(
-                    child: Text(
-                      scoreKeeperService.runningTotal.toString(),
-                      style: CustomTheme.themeData.textTheme.labelLarge,
-                    ),
-                  )
-                ],
+                    FittedBox(
+                      child: Text(
+                        scoreKeeperService.runningTotal.toString(),
+                        style: CustomTheme.themeData.textTheme.labelLarge,
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 4,
-                width: double.infinity,
-                color: Colors.black,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 4,
+                  width: double.infinity,
+                  color: Colors.black,
+                ),
               ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: scoreKeeperService.historyItems.length,
-                itemBuilder: (context, index) {
-                  final item = scoreKeeperService.historyItems[index];
-                  if (item is PlayerLabelItem) {
-                    return _buildPlayerLabel(item, context);
-                  } else if (item is DiceRollItem) {
-                    return _buildDiceRoll(item, context);
-                  } else if (item is FarkleItem) {
-                    return _buildFarkleItem();
-                  } else {
-                    return const SizedBox.shrink();
-                  }
-                },
+              Expanded(
+                child: ListView.builder(
+                  itemCount: scoreKeeperService.historyItems.length,
+                  itemBuilder: (context, index) {
+                    final item = scoreKeeperService.historyItems[index];
+                    if (item is PlayerLabelItem) {
+                      return Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: SizedBox(
+                            height: constraints.maxHeight / 12,
+                            width: constraints.maxWidth,
+                            child: _buildPlayerLabel(item, context)),
+                      );
+                    } else if (item is DiceRollItem) {
+                      return _buildDiceRoll(item, context);
+                    } else if (item is FarkleItem) {
+                      return SizedBox(
+                          height: constraints.maxHeight / 8,
+                          width: constraints.maxWidth,
+                          child: _buildFarkleItem());
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  },
+                ),
               ),
-            ),
-          ],
-        ),
-      );
+            ],
+          ),
+        );
+      });
     });
   }
 
@@ -80,28 +91,21 @@ class ScoringHistory extends StatelessWidget {
         dividerColor = Colors.grey;
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 8),
-          child: Divider(
-            thickness: 4.0,
-            color: dividerColor,
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10), color: dividerColor),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: FittedBox(
+            child: Text(item.playerName,
+                style: CustomTheme.themeData.textTheme.displayMedium),
           ),
         ),
-        FittedBox(
-          child: Text(item.playerName,
-              style: CustomTheme.themeData.textTheme.labelMedium),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: Divider(
-            thickness: 4.0,
-            color: dividerColor,
-          ),
-        ),
-      ],
+      ),
     );
   }
 
