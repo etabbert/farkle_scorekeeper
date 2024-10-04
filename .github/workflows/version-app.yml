@@ -1,0 +1,48 @@
+name: Version Flutter App
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Determine version bump type
+        id: determine_version
+        run: |
+          pr_title="${{ github.event.pull_request.title }}"
+          if [[ "$pr_title" =~ [mM]ajor ]]; then
+            echo "bump=major" >> $GITHUB_ENV
+          elif [[ "$pr_title" =~ [mM]inor ]]; then
+            echo "bump=minor" >> $GITHUB_ENV
+          elif [[ "$pr_title" =~ [pP]atch ]]; then
+            echo "bump=patch" >> $GITHUB_ENV
+          else
+            echo "No version bump keyword found in PR title."
+            exit 1
+          fi
+
+      - name: Bump version in pubspec.yaml
+        run: |
+          current_version=$(grep '^version:' vision/pubspec.yaml | awk '{print $2}')
+          IFS="." read -r major minor patch <<< "$current_version"
+
+          case ${{ env.bump }} in
+            major) new_version="$((major + 1)).0.0" ;;
+            minor) new_version="$major.$((minor + 1)).0" ;;
+            patch) new_version="$major.$minor.$((patch + 1))" ;;
+          esac
+
+          echo "New version: $new_version"
+          sed -i "s/^version: .*/version: $new_version/" vision/pubspec.yaml
+          echo "new_version=$new_version" >> $GITHUB_ENV
+
+      - name: Commit and push version bump
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Bump version to ${{ env.new_version }}"
