@@ -2,7 +2,11 @@ name: Version Flutter App
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   version:
@@ -29,7 +33,7 @@ jobs:
 
       - name: Bump version in pubspec.yaml
         run: |
-          current_version=$(grep '^version:' vision/pubspec.yaml | awk '{print $2}')
+          current_version=$(grep '^version:' pubspec.yaml | awk '{print $2}')
           IFS="." read -r major minor patch <<< "$current_version"
 
           case ${{ env.bump }} in
@@ -39,10 +43,11 @@ jobs:
           esac
 
           echo "New version: $new_version"
-          sed -i "s/^version: .*/version: $new_version/" vision/pubspec.yaml
+          sed -i "s/^version: .*/version: $new_version/" pubspec.yaml
           echo "new_version=$new_version" >> $GITHUB_ENV
 
       - name: Commit and push version bump
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           commit_message: "Bump version to ${{ env.new_version }}"
