@@ -4,6 +4,10 @@ on:
   pull_request:
     types: [opened]
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   version:
     runs-on: ubuntu-latest
@@ -45,4 +49,5 @@ jobs:
       - name: Commit and push version bump
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           commit_message: "Bump version to ${{ env.new_version }}"
